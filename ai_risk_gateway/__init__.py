@@ -16,6 +16,7 @@ Example:
 			FrequencyPolicy(max_actions=3, timeframe_seconds=60),
 			RefundLimitPolicy(max_refund_amount=500.0),
 		],
+		mode="strict",  # strict | advisory | monitor
 	)
 
 	decision = gateway.evaluate(
@@ -25,15 +26,18 @@ Example:
 			"payload": {"to": "user@company.com"},
 		}
 	)
+
+	# Optionally apply enforcement mode override:
+	enforced = gateway.enforce(decision)
 """
 
 from ai_risk_gateway.config.settings import GatewaySettings
 from ai_risk_gateway.exceptions import ActionValidationError, PolicyEvaluationError, RiskGatewayError
-from ai_risk_gateway.gateway import RiskGateway
+from ai_risk_gateway.gateway import EnforcementMode, RiskGateway
 from ai_risk_gateway.models.action import Action
 from ai_risk_gateway.models.context import Context
 from ai_risk_gateway.models.decision import Decision, DecisionType
-from ai_risk_gateway.models.violation import Violation
+from ai_risk_gateway.models.violation import SeverityLevel, Violation
 from ai_risk_gateway.policies.base import BasePolicy
 from ai_risk_gateway.policies.email.domain_policy import DomainPolicy
 from ai_risk_gateway.policies.email.frequency_policy import FrequencyPolicy
@@ -51,6 +55,7 @@ __all__ = [
 	"Decision",
 	"DecisionType",
 	"DomainPolicy",
+	"EnforcementMode",
 	"FrequencyPolicy",
 	"GatewaySettings",
 	"InMemoryStateProvider",
@@ -59,5 +64,6 @@ __all__ = [
 	"RefundLimitPolicy",
 	"RiskGateway",
 	"RiskGatewayError",
+	"SeverityLevel",
 	"Violation",
 ]

@@ -3,15 +3,17 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Literal
+
+SeverityLevel = Literal["LOW", "MEDIUM", "HIGH"]
 
 
 @dataclass(frozen=True)
 class Violation:
-	"""Represents a policy violation with risk contribution."""
+    """Represents a policy violation with structured risk metadata."""
 
-	policy_name: str
-	message: str
-	weight: int
-	code: str | None = None
-	details: dict[str, Any] = field(default_factory=dict)
+    policy_code: str
+    severity: SeverityLevel
+    weight: int
+    message: str
+    details: dict[str, Any] = field(default_factory=dict)
