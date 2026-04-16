@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentbridge"
+version = "0.1.0"
+description = "Make your software agent-ready in minutes. Open source middleware that exposes a Web MCP compatible Action Registry for AI agents."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [
+    { name = "AgentBridge Contributors" }
+]
+keywords = [
+    "ai-agents",
+    "mcp",
+    "web-mcp",
+    "agent-ready",
+    "automation",
+    "llm",
+    "ai-infrastructure"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+]
+
+# Core has zero dependencies — works with stdlib only
+dependencies = []
+
+[project.optional-dependencies]
+fastapi = ["fastapi>=0.100.0", "uvicorn>=0.22.0"]
+flask = ["flask>=2.3.0"]
+django = ["django>=4.2"]
+all = ["fastapi>=0.100.0", "uvicorn>=0.22.0", "flask>=2.3.0", "django>=4.2"]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/agentbridge/agentbridge"
+Documentation = "https://github.com/agentbridge/agentbridge/blob/main/docs/quickstart.md"
+Repository = "https://github.com/agentbridge/agentbridge"
+Issues = "https://github.com/agentbridge/agentbridge/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["agentbridge*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+pythonpath = ["."]
+
+[tool.black]
+line-length = 100
+target-version = ["py39"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I"]
